@@ -1,4 +1,4 @@
-# NodeMCU #5 – Monitoramento Avançado de Qualidade do Ar (MQ‑135 + DHT11) 💨
+# Monitoramento Avançado de Qualidade do Ar (MQ‑135 + DHT11 + OLED) 💨
 
 Esta placa é dedicada ao monitoramento da qualidade do ar (concentração de gases) usando o sensor [MQ-135](https://www.makerhero.com/blog/como-funciona-o-sensor-de-gas-mq-135/?srsltid=AfmBOorwAhi8It0JkbR7EZQjq7tZ1lGu5Q90_x1cF1DfJ-fndEwpIFdH)
 
