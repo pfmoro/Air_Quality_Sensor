@@ -105,21 +105,6 @@ Esse valor representa o **RZero real do seu sensor específico**.
 
 
 
-## 🌐 Servidor Web – Endpoint `/`
-
-Acessando o IP da placa no navegador:
-
-```json
-{
-  "temperatura": 25.4,
-  "umidade": 61.2,
-  "mq135_raw_adc": 312,
-  "mq135_raw_corrigido_adc": 468,
-  "ppm_corrigido": 11.8,
-  "rzero_estimado": 76.4
-}
-```
-
 ---
 
 ## ☁️ ThingSpeak
@@ -161,25 +146,14 @@ Exemplo no Serial:
 * Resultados são **comparativos e ambientais**, não laboratoriais
 * Calibração correta **impacta drasticamente a qualidade dos dados**
 
----
 
-## ✅ Checklist Final
-
-* [ ] MQ‑135 ligado em **VIN (5 V)**
-* [ ] Divisor de tensão montado corretamente
-* [ ] Burn‑in ≥ 24h
-* [ ] RZero observado e fixado em `MQ135_corr.h`
-* [ ] Wi‑Fi estável
-* [ ] ThingSpeak recebendo dados
-
----
 
 🧠 Arquitetura do Sistema (Firmware)
 
 O firmware foi modularizado para separar claramente responsabilidades entre sensores, comunicação, interface e visualização.
 
 A arquitetura segue o padrão:
-
+```
 main.ino
 │
 ├── sensors (MQ135 + DHT11 + leitura ADC)
@@ -189,7 +163,7 @@ main.ino
 └── cloud (ThingSpeak)
 🧩 Módulos do Sistema
 🌡️ sensors.cpp / sensors.h
-
+```
 Responsável por toda a camada de aquisição de dados.
 
 Funções principais:
@@ -202,7 +176,7 @@ Filtragem básica de ruído (média móvel simples, quando aplicada)
 Saída do módulo:
 
 Estrutura de dados central:
-
+```
 struct SensorData {
     float temperature;
     float humidity;
@@ -211,6 +185,8 @@ struct SensorData {
     float ppm;
     float rzero;
 };
+```
+
 📡 wifi.cpp / wifi.h
 
 Gerencia toda a conectividade Wi-Fi.
@@ -231,7 +207,7 @@ Implementa uma interface local acessível via navegador.
 📍 Endpoint principal: /
 
 Retorna JSON com todos os dados do sistema:
-
+```json
 {
   "temperature": 25.4,
   "humidity": 61.2,
@@ -241,6 +217,7 @@ Retorna JSON com todos os dados do sistema:
   "rzero": 76.4,
   "wifi_ip": "192.168.1.42"
 }
+```
 📊 Endpoint futuro (opcional / expansão):
 /dashboard → interface HTML leve (modo debug visual)
 /config → ajustes remotos (futuro)
@@ -263,7 +240,7 @@ Exibir os dados críticos sem necessidade de Wi-Fi ou acesso web.
 📊 Layout do display (modo atual)
 
 O firmware alterna entre telas:
-
+```
 Tela 1 – Estado do ar
 MQ-135
 PPM: 12.3
@@ -273,6 +250,8 @@ Hum:  61 %
 Tela 3 – Sistema
 WiFi OK
 192.168.1.42
+```
+
 🔄 Atualização
 Refresh típico: ~1–2 segundos
 Alternância de telas em loop
@@ -284,7 +263,7 @@ Visualização portátil do sensor
 ☁️ Integração entre módulos
 
 O fluxo geral do sistema é:
-
+```
 [SENSORS]
    ↓
 [sensors.cpp]
@@ -296,6 +275,7 @@ O fluxo geral do sistema é:
  └──────────────┴──────────────┘
         ↓
    ThingSpeak (cloud)
+```
 🔁 Ciclo de Execução
 
 O firmware opera em loop contínuo:
@@ -325,3 +305,15 @@ Estrutura modular extensível
 
 ---
 
+---
+
+## ✅ Checklist Final
+
+* [ ] MQ‑135 ligado em **VIN (5 V)**
+* [ ] Divisor de tensão montado corretamente
+* [ ] Burn‑in ≥ 24h
+* [ ] RZero observado e fixado em `MQ135_corr.h`
+* [ ] Wi‑Fi estável
+* [ ] ThingSpeak recebendo dados
+
+---
