@@ -1,6 +1,6 @@
 #include <DHT.h>
 
-#define DHTPIN 4
+#define DHTPIN D4
 #define DHTTYPE DHT11
 
 DHT dht(DHTPIN, DHTTYPE);

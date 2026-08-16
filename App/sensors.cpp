@@ -57,37 +57,40 @@ uint8_t oledPage = 0;
 // Inicialização
 // =====================================================
 
+bool checkI2CDevice(uint8_t address) {
+    Wire.beginTransmission(address);
+    // endTransmission retorna 0 quando o dispositivo envia um ACK de confirmação
+    return (Wire.endTransmission() == 0); 
+}
+
 void initSensors() {
 
     dht.begin();
-
     Serial.println(F("[DHT] Inicializado."));
 
-    // OLED
-    if (!display.begin(
-            SSD1306_SWITCHCAPVCC,
-            OLED_ADDRESS)) {
+    // Inicializa o barramento I2C da NodeMCU
+    Wire.begin(D2, D1); // D2=SDA, D1=SCL (Ajuste se seus pinos forem diferentes)
 
+    // 1. Testa a comunicação direta I2C com o endereço 0x3C
+    if (!checkI2CDevice(OLED_ADDRESS)) {
         oled_ok = false;
-
-        Serial.println(F("[OLED] Nao encontrado."));
-    }
+        Serial.println(F("[OLED] Dispositivo I2C nao encontrado no endereco 0x3C."));
+    } 
+    // 2. Tenta inicializar o display Adafruit apenas se o chip respondeu
+    else if (!display.begin(SSD1306_SWITCHCAPVCC, OLED_ADDRESS)) {
+        oled_ok = false;
+        Serial.println(F("[OLED] Falha ao alocar memoria ou inicializar SSD1306."));
+    } 
     else {
-
         oled_ok = true;
-
         display.clearDisplay();
-
         display.setTextColor(SSD1306_WHITE);
-
         display.setTextSize(1);
-
         display.setCursor(0, 0);
         display.println(F("OLED OK"));
-
         display.display();
 
-        Serial.println(F("[OLED] Inicializado."));
+        Serial.println(F("[OLED] Inicializado com sucesso."));
     }
 }
 
