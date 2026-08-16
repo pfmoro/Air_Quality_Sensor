@@ -29,7 +29,7 @@ String getJSON() {
         temperatura,
         umidade,
         ppm_corrigido,
-        getCurrentRZero(),
+        rzero_estimado,
         (WiFi.status() == WL_CONNECTED) ? "true" : "false"
     );
 
