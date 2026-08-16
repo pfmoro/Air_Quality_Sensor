@@ -37,4 +37,6 @@ void initThingSpeak();
 
 void handleThingSpeak();
 
+void sendThingSpeak();
+
 #endif

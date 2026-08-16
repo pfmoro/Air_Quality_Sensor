@@ -2,9 +2,10 @@
 
 #include <ESP8266WiFi.h>
 
-#include "wifi.h"
+#include "config.h"
 #include "sensors.h"
 #include "parameters.h"
+#include <ThingSpeak.h>
 
 // =====================================================
 // Cliente TCP
@@ -93,8 +94,8 @@ void sendThingSpeak() {
     // =================================================
 
     int status = ThingSpeak.writeFields(
-        myChannelNumber,
-        myWriteAPIKey
+        THINGSPEAK_CHANNEL,
+        THINGSPEAK_API_KEY
     );
 
     // =================================================

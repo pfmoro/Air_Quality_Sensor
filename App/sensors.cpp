@@ -14,7 +14,7 @@
 #include "parameters.h"
 
 // ===== Configurações =====
-#define DHTPIN D2
+#define DHTPIN D4
 #define DHTTYPE DHT11
 
 #define SCREEN_WIDTH 128
@@ -49,6 +49,7 @@ bool oled_ok = false;
 
 // ===== Controle OLED =====
 unsigned long lastOLEDPageChange = 0;
+unsigned long lastOLEDUpdate =0;
 
 uint8_t oledPage = 0;
 
@@ -341,9 +342,9 @@ void updateOLED() {
 }
 
 float getCurrentRZero() {
-    return mq135.get_rzeroValue();
+    return mq135.getRZeroValue();
 }
 
 void setCurrentRZero(float rzero) {
-    mq135.set_rzero(rzero);
+    mq135.setRZero(rzero);
 }

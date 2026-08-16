@@ -47,7 +47,7 @@ class MQ135_corr {
       float rs = getResistance(adc_corrigido);
       if (rs <= 0) return 0;
 
-      float ratio = rs / RZERO;
+      float ratio = rs / _rzero;
       return 116.6020682 * pow(ratio, -2.769034857);
     }
 
@@ -56,7 +56,7 @@ class MQ135_corr {
       if (rs <= 0) return 0;
 
       float corr = getCorrectionFactor(temperature, humidity);
-      float ratio = (rs / corr) / RZERO;
+      float ratio = (rs / corr) / _rzero;
 
       return 116.6020682 * pow(ratio, -2.769034857);
     }

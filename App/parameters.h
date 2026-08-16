@@ -19,7 +19,7 @@ const unsigned long INTERVALO_THINGSPEAK = 600000;
 
 //Valores padrões do FieldMAP do thingspeak:
 constexpr int DEFAULT_FIELDMAP[4] = {
-    1, 2, 3, 4
+    0, 0, 8, 0
 };
 
 

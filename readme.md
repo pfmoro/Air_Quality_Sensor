@@ -31,8 +31,11 @@ O projeto evoluiu de uma leitura analógica simples para um sistema de monitoram
 | MQ‑135 (GND) | **GND**          | Terra comum                   |
 | MQ‑135 (A0)  | **Divisor → A0** | Proteção do ADC               |
 | DHT11 (VCC)  | **3V3**          | Alimentação lógica            |
-| DHT11 (DATA) | **D2 (GPIO4)**   | Comunicação digital           |
-| DHT11 (GND)  | **GND**          | Terra comum                   |
+| DHT11 (DATA) | **D3**           | Comunicação digital           |
+| OLED (GND)   | **GND**          | Terra comum                   |
+| OLED (VCC)   | **3V3**          | ALimentação Lógica            |
+| OLED (SDA)   | **D1**           | Padrão I2C                    |
+| OLED (SCL)   | **D2**           | Padrão I2C                    |
 
 ### Divisor de Tensão (Proteção A0)
 
@@ -192,7 +195,6 @@ struct SensorData {
 Gerencia toda a conectividade Wi-Fi.
 
 Responsabilidades:
-Conexão inicial com SSID/Senha (via wifi.h)
 Retry automático em caso de falha
 Reconexão em runtime (watchdog simples)
 Log de IP obtido via Serial
@@ -201,6 +203,9 @@ Em caso de queda:
 tenta reconectar continuamente
 não bloqueia o loop principal
 🌐 Web Server (web.cpp)
+
+📡 config.h
+cadastro da Conexão inicial com SSID/Senha (via wifi.h)
 
 Implementa uma interface local acessível via navegador.
 

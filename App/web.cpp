@@ -338,8 +338,11 @@ void initWeb() {
     server.begin();
 
     Serial.println(
-        F("[WEB] Servidor iniciado.")
-    );
+        F("[WEB] Servidor iniciado."));
+
+    Serial.println(F("[IP]: "));
+    Serial.println(WiFi.localIP());
+   
 }
 
 // =====================================================
