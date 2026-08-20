@@ -48,15 +48,12 @@ String getTimeString(bool includeSeconds) {
     unsigned int minutos =
         (segundos % 3600) / 60;
 
-    char buffer[12];
-
-    snprintf(
-        buffer,
-        sizeof(buffer),
-        "UP %02u:%02u",
-        horas,
-        minutos
-    );
-
+    char buffer[16];
+    if (includeSeconds) {
+        snprintf(buffer, sizeof(buffer), "UP %02u:%02u:%02u", horas, minutos, segundos);
+    } else {
+        snprintf(buffer, sizeof(buffer), "UP %02u:%02u", horas, minutos);
+    }
+    
     return String(buffer);
 }

@@ -7,7 +7,8 @@
 class MQ135_corr {
   public:
     static constexpr float RLOAD = 10.0;    // kΩ
-    static constexpr float DEFAULT_RZERO  = 76.63;   // Valor inicial (calibrar após burn-in)
+    //static constexpr float DEFAULT_RZERO  = 76.63;   // Valor inicial (calibrar após burn-in)
+    static constexpr float DEFAULT_RZERO  = 46.65; //Calibrado
 
     MQ135_corr(float vcc = 5.0,
            float rzero = DEFAULT_RZERO) {

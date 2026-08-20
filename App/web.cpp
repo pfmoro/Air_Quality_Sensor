@@ -25,12 +25,14 @@ String getJSON() {
         "\"umidade\":%.1f,"
         "\"ppm\":%.1f,"
         "\"rzero\":%.2f,"
-        "\"wifi\":%s}",
+        "\"wifi\":%s,"
+        "\"tempo\":\"%s\"}",
         temperatura,
         umidade,
         ppm_corrigido,
         rzero_estimado,
-        (WiFi.status() == WL_CONNECTED) ? "true" : "false"
+        (WiFi.status() == WL_CONNECTED) ? "true" : "false",
+        getTimeString(true).c_str()
     );
 
     return String(buffer);
@@ -142,7 +144,7 @@ void handleRoot() {
     server.sendContent(
         "<p><b>RZero:</b> "
         + String(
-            getCurrentRZero(),
+            rzero_estimado,
             2
         )
         + "</p>"
